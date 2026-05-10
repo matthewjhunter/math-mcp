@@ -1,0 +1,8 @@
+/math-mcp
+/dist/
+/coverage.out
+/coverage.html
+*.test
+*.out
+.idea/
+.vscode/
