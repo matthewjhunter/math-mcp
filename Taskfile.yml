@@ -2,7 +2,9 @@ version: "3"
 
 tasks:
   default:
-    deps: [test, lint]
+    desc: Show available tasks
+    cmds:
+      - task --list
 
   build:
     desc: Build the math-mcp binary
@@ -20,6 +22,27 @@ tasks:
       - go test -race -coverprofile=coverage.out ./...
       - go tool cover -func=coverage.out
 
+  vet:
+    desc: Run go vet
+    cmds:
+      - go vet ./...
+
+  fmt:
+    desc: Check formatting with gofmt
+    cmds:
+      - |
+        unformatted=$(gofmt -l .)
+        if [ -n "$unformatted" ]; then
+          echo "Unformatted files:"
+          echo "$unformatted"
+          exit 1
+        fi
+
+  fmt:fix:
+    desc: Apply gofmt
+    cmds:
+      - gofmt -w .
+
   lint:
     desc: Run golangci-lint
     cmds:
@@ -30,6 +53,15 @@ tasks:
     cmds:
       - govulncheck ./...
 
+  check:
+    desc: Run CI checks (test, vet, fmt, lint, vuln)
+    cmds:
+      - task: test
+      - task: vet
+      - task: fmt
+      - task: lint
+      - task: vuln
+
   tidy:
     desc: Tidy go.mod
     cmds:
@@ -39,3 +71,9 @@ tasks:
     desc: Install math-mcp into $GOBIN/$GOPATH/bin
     cmds:
       - go install ./cmd/math-mcp
+
+  register-mcp:
+    desc: Register math-mcp with Claude Code at user scope (runs install first)
+    deps: [install]
+    cmds:
+      - claude mcp add math-mcp -s user -- math-mcp
