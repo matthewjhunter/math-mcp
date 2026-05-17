@@ -30,13 +30,17 @@ func main() {
 		}
 	}
 
+	if err := run(); err != nil {
+		log.Fatalf("math-mcp: %v", err)
+	}
+}
+
+func run() error {
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
 
 	s := server.New("math-mcp", version)
-	if err := s.Run(ctx, &mcp.StdioTransport{}); err != nil {
-		log.Fatalf("math-mcp: %v", err)
-	}
+	return s.Run(ctx, &mcp.StdioTransport{})
 }
 
 const helpText = `math-mcp — MCP server for accurate math and financial calculations.

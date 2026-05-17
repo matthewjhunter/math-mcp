@@ -57,7 +57,7 @@ func Register(s *mcp.Server) {
 	const offload = "Use this tool to compute the aggregate accurately instead of estimating from values in context. "
 
 	arrayTool(s, "stats_sum", offload+"Returns the sum of the values.",
-		func(v []float64) float64 { return floats.Sum(v) })
+		floats.Sum)
 
 	arrayTool(s, "stats_mean", offload+"Returns the arithmetic mean of the values. For most data the mean is sensitive to outliers; consider stats_median if the distribution is skewed.",
 		func(v []float64) float64 { return stat.Mean(v, nil) })
@@ -66,10 +66,10 @@ func Register(s *mcp.Server) {
 		median)
 
 	arrayTool(s, "stats_min", offload+"Returns the minimum value.",
-		func(v []float64) float64 { return floats.Min(v) })
+		floats.Min)
 
 	arrayTool(s, "stats_max", offload+"Returns the maximum value.",
-		func(v []float64) float64 { return floats.Max(v) })
+		floats.Max)
 
 	arrayTool(s, "stats_variance", offload+
 		"Returns the UNBIASED SAMPLE variance (divides by n-1). Use this when the input is a sample drawn from a larger population (the typical case). "+

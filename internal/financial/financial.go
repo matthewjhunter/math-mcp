@@ -46,7 +46,7 @@ type FinResult struct {
 	ResultFloat float64        `json:"result_float" jsonschema:"the computed value as a float64 (precision lost; provided for convenience only)"`
 }
 
-// IPmtIn: interest portion of payment for a given period.
+// IPmtIn carries inputs for the interest portion of a payment for a given period.
 type IPmtIn struct {
 	Rate string `json:"rate" jsonschema:"interest rate per period as a decimal string"`
 	Per  int64  `json:"per" jsonschema:"the period for which interest is being calculated (1-indexed)"`
@@ -56,10 +56,10 @@ type IPmtIn struct {
 	When string `json:"when,omitempty" jsonschema:"end (default) or begin"`
 }
 
-// PPmtIn: principal portion of payment for a given period.
+// PPmtIn carries inputs for the principal portion of a payment for a given period.
 type PPmtIn = IPmtIn
 
-// FvIn: future value.
+// FvIn carries inputs for a future-value calculation.
 type FvIn struct {
 	Rate string `json:"rate" jsonschema:"interest rate per period as a decimal string"`
 	Nper int64  `json:"nper" jsonschema:"total number of payment periods"`
@@ -68,7 +68,7 @@ type FvIn struct {
 	When string `json:"when,omitempty" jsonschema:"end (default) or begin"`
 }
 
-// PvIn: present value.
+// PvIn carries inputs for a present-value calculation.
 type PvIn struct {
 	Rate string `json:"rate" jsonschema:"interest rate per period as a decimal string"`
 	Nper int64  `json:"nper" jsonschema:"total number of payment periods"`
@@ -77,13 +77,13 @@ type PvIn struct {
 	When string `json:"when,omitempty" jsonschema:"end (default) or begin"`
 }
 
-// NpvIn: net present value of an irregular cash-flow stream.
+// NpvIn carries inputs for a net-present-value calculation over an irregular cash-flow stream.
 type NpvIn struct {
 	Rate     string   `json:"rate" jsonschema:"discount rate per period as a decimal string"`
 	CashFlow []string `json:"cash_flow" jsonschema:"cash flows per period as decimal strings, starting at period 0"`
 }
 
-// NperIn: number of periods to reach a target.
+// NperIn carries inputs for solving the number of periods to reach a target.
 type NperIn struct {
 	Rate string `json:"rate" jsonschema:"interest rate per period as a decimal string"`
 	Pmt  string `json:"pmt" jsonschema:"payment per period (negative if paying out)"`
@@ -92,7 +92,7 @@ type NperIn struct {
 	When string `json:"when,omitempty" jsonschema:"end (default) or begin"`
 }
 
-// RateIn: solve for periodic interest rate via Newton-Raphson.
+// RateIn carries inputs for solving the periodic interest rate via Newton-Raphson.
 type RateIn struct {
 	PV           string `json:"pv" jsonschema:"present value"`
 	FV           string `json:"fv" jsonschema:"future value"`
