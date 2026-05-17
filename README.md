@@ -1,5 +1,10 @@
 # math-mcp
 
+[![CI](https://github.com/matthewjhunter/math-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/matthewjhunter/math-mcp/actions/workflows/ci.yml)
+[![Go Reference](https://pkg.go.dev/badge/github.com/matthewjhunter/math-mcp.svg)](https://pkg.go.dev/github.com/matthewjhunter/math-mcp)
+[![Go Report Card](https://goreportcard.com/badge/github.com/matthewjhunter/math-mcp)](https://goreportcard.com/report/github.com/matthewjhunter/math-mcp)
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+
 An MCP server that exposes accurate math, statistics, and financial calculations
 to LLM clients. The intent is to give models a precise alternative to inferring
 numeric answers from context — call a tool, get the right number.
@@ -110,11 +115,15 @@ direct Newton-Raphson search over `financial_npv`.
 task test    # go test -race ./...
 task lint    # golangci-lint run
 task vuln    # govulncheck ./...
+task check   # test + vet + fmt + lint + vuln
 task build   # build math-mcp binary
 ```
 
-CI runs all three on every push.
+CI runs the equivalent of `task check` on every push and PR.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines and
+[SECURITY.md](SECURITY.md) for vulnerability reporting.
 
 ## License
 
-Apache 2.0 — see `LICENSE`.
+Apache-2.0 — see [LICENSE](LICENSE).
